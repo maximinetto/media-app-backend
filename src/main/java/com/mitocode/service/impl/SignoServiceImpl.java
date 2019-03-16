@@ -1,5 +1,6 @@
 package com.mitocode.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,19 @@ public class SignoServiceImpl implements ISignoService{
 		return signoDao.findAll(pageable);
 	}
 	
+	@Override
+	public Page<Signo> listarPageablePorNombreApellidosAndFecha(String busqueda, 
+			LocalDate fecha, Pageable pageable) {
+		busqueda = busqueda.toUpperCase();
+		return signoDao.findByPacienteAndFecha(busqueda, fecha, pageable);
+	}
+	
+	@Override
+	public Page<Signo> listarPageablePorNombreApellidos(String busqueda, Pageable pageable) {
+		busqueda = busqueda.toUpperCase();
+		return signoDao.findByPaciente(busqueda, pageable);
+	}
+	
 	public List<Paciente> buscarPacientePorNombreApellidos(String busqueda)
 	{
 		busqueda = busqueda.toUpperCase();
@@ -62,5 +76,7 @@ public class SignoServiceImpl implements ISignoService{
 		return pacienteDao.obtenerPacientePorBusqueda(busqueda, pageable);
 		
 	}
+
+	
 
 }

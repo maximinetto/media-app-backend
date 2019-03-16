@@ -4,6 +4,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -11,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -49,6 +52,23 @@ public class SignoController {
 		signo = service.listarPageable(pageable);
 		return new ResponseEntity<Page<Signo>>(signo, HttpStatus.OK);
 	}
+	
+	@GetMapping(value="/busqueda/pageable", 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Page<Signo>> listarPageablePorNombreApellidosOrFecha
+			(@RequestParam(value = "busqueda", required = true)String busqueda,
+					@RequestParam(value = "fecha", required = false) @DateTimeFormat(pattern="yyyy-MM-dd")LocalDate fecha,
+					Pageable pageable){
+		Page<Signo> signo;
+		if(fecha != null)
+			signo = service.listarPageablePorNombreApellidosAndFecha(busqueda, fecha, pageable);
+		else
+			signo = service.listarPageablePorNombreApellidos(busqueda, pageable);
+		
+		return new ResponseEntity<Page<Signo>>(signo, HttpStatus.OK);
+	}
+	
+	
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Resource<Signo> listarPorId(@PathVariable("id") Integer id) {
