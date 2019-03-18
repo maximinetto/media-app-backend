@@ -85,8 +85,8 @@ public class SignoController {
 		return resource;
 	}
 	
-	@GetMapping(value = "/buscar/{busqueda}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Paciente>> listarPacienteSigno(@PathVariable("busqueda") String busqueda){
+	@GetMapping(value = "/buscar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Paciente>> listarPacienteSigno(@RequestParam(value = "busqueda", required = false) String busqueda){
 		List<Paciente> pacientes = service.buscarPacientePorNombreApellidos(busqueda);
 		return new ResponseEntity<>(pacientes, HttpStatus.OK);
 	}
