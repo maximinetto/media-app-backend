@@ -18,4 +18,6 @@ public interface ISignoService extends ICRUD<Signo>{
 	Page<Signo> listarPageablePorNombreApellidosAndFecha(String busqueda, LocalDate fecha, Pageable pageable);
 
 	Page<Signo> listarPageablePorNombreApellidos(String busqueda, Pageable pageable);
+
+	Paciente obtenerUltimoPaciente();
 }

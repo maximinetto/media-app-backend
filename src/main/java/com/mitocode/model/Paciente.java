@@ -40,8 +40,8 @@ public class Paciente {
 	@Column(name = "direccion", nullable = true, length = 150)	
 	private String direccion;
 	
-	@ApiModelProperty(notes = "Telefono debe tener 9 caracteres")
-	@Size(min = 9, max = 9, message = "Telefono debe tener 9 caracteres")
+	@ApiModelProperty(notes = "Telefono debe tener entre 8 a 9 caracteres")
+	@Size(min = 8, max = 9, message = "Telefono debe entre 8 a 9 caracteres")
 	@Column(name = "telefono", nullable = true, length = 9)
 	private String telefono;
 	

@@ -68,6 +68,7 @@ public class SignoServiceImpl implements ISignoService{
 		return signoDao.findByPaciente(busqueda, pageable);
 	}
 	
+	@Override
 	public List<Paciente> buscarPacientePorNombreApellidos(String busqueda)
 	{
 		busqueda = busqueda.toUpperCase();
@@ -75,6 +76,12 @@ public class SignoServiceImpl implements ISignoService{
 		Pageable pageable = new PageRequest(0, 10, sort);
 		return pacienteDao.obtenerPacientePorBusqueda(busqueda, pageable);
 		
+	}
+	
+	@Override
+	public Paciente obtenerUltimoPaciente() {
+		Pageable pageable = new PageRequest(0, 1);
+		return pacienteDao.obtenerUltimoPaciente(pageable).stream().findFirst().orElse(null);
 	}
 
 	

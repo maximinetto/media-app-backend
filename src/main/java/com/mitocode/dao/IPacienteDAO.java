@@ -14,4 +14,6 @@ public interface IPacienteDAO extends JpaRepository<Paciente, Integer>{
 	@Query("SELECT p FROM Paciente p WHERE UPPER(CONCAT(p.nombres, ' ',p.apellidos)) LIKE %:busqueda%")
 	List<Paciente> obtenerPacientePorBusqueda(@Param("busqueda")String busqueda, Pageable pageable);
 	
+	@Query("SELECT p FROM Paciente p ORDER BY p.idPaciente desc")
+	List<Paciente> obtenerUltimoPaciente(Pageable pageable);
 }
