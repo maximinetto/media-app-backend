@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -47,6 +48,18 @@ public class PacienteController {
 		Page<Paciente> pacientes;
 		pacientes = service.listarPageable(pageable);
 		return new ResponseEntity<Page<Paciente>>(pacientes, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/buscar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Paciente>> listarPacienteSigno(@RequestParam(value = "busqueda", required = false) String busqueda){
+		List<Paciente> pacientes = service.buscarPacientePorNombreApellidos(busqueda);
+		return new ResponseEntity<>(pacientes, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/lastPaciente", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Paciente> obtenerUltimoPaciente(){
+		Paciente paciente = service.obtenerUltimoPaciente();
+		return new ResponseEntity<>(paciente, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

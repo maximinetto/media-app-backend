@@ -36,7 +36,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 		String errores = "";
 		for (ObjectError e : ex.getBindingResult().getAllErrors()) {
-			errores += e.getObjectName();
+			errores += e.getDefaultMessage();
 		}
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Validación fallida", errores);
 		

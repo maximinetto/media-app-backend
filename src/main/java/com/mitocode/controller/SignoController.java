@@ -84,18 +84,6 @@ public class SignoController {
 		
 		return resource;
 	}
-	
-	@GetMapping(value = "/buscar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Paciente>> listarPacienteSigno(@RequestParam(value = "busqueda", required = false) String busqueda){
-		List<Paciente> pacientes = service.buscarPacientePorNombreApellidos(busqueda);
-		return new ResponseEntity<>(pacientes, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/lastPaciente", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Paciente> obtenerUltimoPaciente(){
-		Paciente paciente = service.obtenerUltimoPaciente();
-		return new ResponseEntity<>(paciente, HttpStatus.OK);
-	}
 
 	@PostMapping(produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Object> registrar(@Valid @RequestBody Signo sig) {
