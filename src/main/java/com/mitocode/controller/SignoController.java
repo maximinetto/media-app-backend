@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mitocode.exception.ModeloNotFoundException;
-import com.mitocode.model.Paciente;
 import com.mitocode.model.Signo;
 import com.mitocode.service.ISignoService;
 
